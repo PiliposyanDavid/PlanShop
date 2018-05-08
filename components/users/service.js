@@ -19,29 +19,14 @@ class UsersService {
 
     }
 
-    insertUsers(user) {
-        return new Promise((resolve, reject) => {
-            UsersDao.inserData(
-                user).then(data => {
-                resolve(data);
-            }).catch(err => {
-                reject(Utylity.GenerateErrorMessage(
-                    Utylity.ErrorTypes.ERROR_CREATION_USER));
-            });
-        });
+    insertUser(user) {
+        return UsersDao.insertData(user);
     }
 
-    updateUsers(id, user) {
-        return new Promise((resolve, reject) => {
-            UsersDao.updateData(id, user)
-                .then(data => {
-                    resolve(data);
-                }).catch(err => {
-                reject(Utylity.GenerateErrorMessage(
-                    Utylity.ErrorTypes.USER_UPDATE_ERROR));
-            });
-        });
+    updateUser(id, user) {
+        UsersDao.updateData(id, user);
     }
+
 
     deleteUsers(id) {
         return new Promise((resolve, reject) => {

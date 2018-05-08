@@ -1,18 +1,18 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 
-
-const Utylity = require('./services/utility');
 const ApiV1 = require('./controllers/api');
 
 const app = express();
 
 app.set('port', process.env.Port || 3333);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+app.use(require('body-parser').urlencoded({
+    limit: 1024 * 1024, //1MB
     extended: true
 }));
-app.use(Utylity.parseQuery);
+app.use(require('body-parser').json({
+    limit: 20 * 1024 * 1024, //20MB
+    extended: true
+}));
 ApiV1.initialize(app);
 
 

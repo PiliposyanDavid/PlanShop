@@ -9,8 +9,6 @@ class UsersDao extends BaseDao {
     constructor() {
         super(connect.model('users'));
     }
-
-
 }
 
 module.exports = new UsersDao();

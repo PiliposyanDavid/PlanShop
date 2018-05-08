@@ -98,21 +98,14 @@ const ErrorTypes = {
     TAGS_REQUIRED: 'tags_required',
     USER_ACTIVATION_EXPIRED: 'user_activation_expired',
     SUBSCRIPTION_ERROR: 'subscription_error',
-    INVALID_ARGUMENTS: 'invalid_arguments'
+    INVALID_ARGUMENTS: 'invalid_arguments',
+    USERNAME_MISSING: 'username_missing',
+    INVALID_USERNAME_RANGE: 'invalid_username_range',
+    PASSWORD_MISSING: 'password_missing',
+    INVALID_PASSWORD_RANGE: 'invalid_password_range'
 };
 
 class Utility {
-    static parseQuery(req, res, next) {
-        req.query.offset = parseInt(req.query.offset);
-        if (!isFinite(req.query.offset)) {
-            req.query.offset = AppConstants.OFFSET_DEFAULT_VALUE;
-        }
-        req.query.limit = parseInt(req.query.limit);
-        if (!isFinite(req.query.limit)) {
-            req.query.limit = AppConstants.LIMIT_DEFAULT_VALUE;
-        }
-        next();
-    }
 
     static GenerateErrorMessage(type, options) {
         let error_object = {
@@ -121,6 +114,18 @@ class Utility {
         };
 
         switch (type) {
+            case ErrorTypes.INVALID_PASSWORD_RANGE:
+                error_object.message = 'Invalid password range';
+                break;
+            case ErrorTypes.PASSWORD_MISSING:
+                error_object.message = 'Please type password';
+                break;
+            case ErrorTypes.INVALID_USERNAME_RANGE:
+                error_object.message = 'Invalid username range';
+                break;
+            case ErrorTypes.USERNAME_MISSING:
+                error_object.message = 'Please type username';
+                break;
             case ErrorTypes.USER_DOESNT_EXIST:
                 error_object.message = 'Incorrect username';
                 break;

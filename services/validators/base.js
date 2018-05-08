@@ -18,9 +18,8 @@ class BaseValidator {
     }
 
     validator(str, type) {
-        if (!this.handlers[type]) {
-            return false;
-        }
+        if (!this.handlers[type]) return false;
+
         return this.handlers[type](str);
     }
 
@@ -33,13 +32,11 @@ class BaseValidator {
     _isNumber(str) {
         if (!str) return false;
 
-        let numberRegExp = AppConstants.NUMBER_REG_EXP;
-        return numberRegExp.test(str);
+        return AppConstants.NUMBER_REG_EXP.test(str);
     }
 
     _isDate(str) {
-        if (!str)
-            return false;
+        if (!str) return false;
 
         return !!Date.parse(str);
     }
@@ -47,8 +44,7 @@ class BaseValidator {
     _isSymbol(str) {
         if (!str) return false;
 
-        let symbolRegExp = AppConstants.SYMBOL_REG_EXP;
-        return symbolRegExp.test(str);
+        return AppConstants.SYMBOL_REG_EXP.test(str);
     }
 }
 

@@ -50,8 +50,56 @@ const ErrorTypes = {
     NO_GROUP: 'no group',
     NO_PHOTO: 'no photo',
     NO_PHOTOS_TYPE: 'no photos type',
-    UNKNOWN_ERROR: 'unknown_error'
-}
+    UNKNOWN_ERROR: 'unknown_error',
+    QUERY_SUCCEEDED: 'query_succeeded',
+    USER_DOESNT_EXIST: 'user_doesnt_exist',
+    USERNAME_OR_PASSWORD_INCORRECT: 'username_or_password_incorrect',
+    PASSWORD_INCORRECT: 'password_incorrect',
+    NAME_FORMAT_INCORRECT: 'name_format_incorrect',
+    EMAIL_FORMAT_INCORRECT: 'email_format_incorrect',
+    PASSWORD_FORMAT_INCORRECT: 'password_format_incorrect',
+    USERNAME_ALREADY_EXISTS: 'username_already_exist',
+    USERNAME_OFFENSIVE: 'username_offensive',
+    INVALID_PHONE_NUMBER: 'phone_number_incorrect',
+    PHONE_NUMBER_EXISTS: 'phone_number_exists',
+    AUTHORIZATION_CODE_INVALID: 'authorization_code_incorrect',
+    EMAIL_ALREADY_EXISTS: 'email_already_exist',
+    INVALID_EMAIL: 'invalid_email',
+    FILE_NOT_PROVIDED: 'file_not_provided',
+    FILE_CORRUPTED: 'file_corrupted',
+    USERNAME_REQUIRED: 'username_required',
+    FILE_UPLOAD_ERROR: 'file_upload_error',
+    USER_NOT_FOUND: 'user_not_found',
+    PHOTO_NOT_FOUND: 'photo_not_found',
+    USER_FOLLOWING_MAXIMUM_REACHED: 'max_follow_count_reached',
+    USERNAME_FORMAT_INCORRECT: 'username_format_incorrect',
+    NOT_PERMITTED: 'not_permitted',
+    USER_ACTION_BLOCKED: 'user_action_blocked',
+    PA_USER_BLOCK_ERROR: "blocking_pa_user",
+    UNSUPPORTED_OPERATION: '',
+    INVALID_PHOTO_TITLE: '',
+    DB_SAVE_ERROR: 'db_save_error',
+    RESOURCE_NOT_FOUND: 'resource_not_found',
+    RESOURCE_ALREADY_EXISTS: 'resource_already_exists',
+    UPLOAD_ERROR: 'upload_error',
+    INVALID_FB_TOKEN: 'invalid_fb_token',
+    USERNAME_LENGTH_INCORRECT: 'username_length_incorrect',
+    INVALID_PURCHASE_DATA: 'invalid_purchase_data',
+    UNKNOWN_LOCATION: 'unknown_location',
+    WRONG_PURCHASE_ACCESS: 'wrong_purchase_access',
+    MESSAGING_CHANNEL_ERROR: 'messaging_channel_error',
+    MESSAGING_MESSAGE_ERROR: 'messaging_message_error',
+    MESSAGING_CHANNEL_INFO_ERROR: 'messaging_channel_info_error',
+    MESSAGING_CHANNEL_REMOVE_ERROR: 'messaging_channel_remove_error',
+    INVALID_AGE_ERROR: 'invalid_age_error',
+    DATE_FORMAT_ERROR: 'date_format_error',
+    LIFTIGNITER_SERVICE_ERROR: 'liftigniter_service_error',
+    MICROSOFT_VISION_ERROR: 'microsoft_vision_error',
+    TAGS_REQUIRED: 'tags_required',
+    USER_ACTIVATION_EXPIRED: 'user_activation_expired',
+    SUBSCRIPTION_ERROR: 'subscription_error',
+    INVALID_ARGUMENTS: 'invalid_arguments'
+};
 
 class Utility {
     static parseQuery(req, res, next) {
@@ -70,14 +118,146 @@ class Utility {
         let error_object = {
             type: type || ErrorTypes.UNKNOWN_ERROR,
             message: 'Something went wrong'
-        }
+        };
 
         switch (type) {
+            case ErrorTypes.USER_DOESNT_EXIST:
+                error_object.message = 'Incorrect username';
+                break;
+            case ErrorTypes.USERNAME_OR_PASSWORD_INCORRECT:
+                error_object.message = 'Username or password incorrect';
+                break;
+            case ErrorTypes.PASSWORD_INCORRECT:
+                error_object.message = 'Incorrect password';
+                break;
+            case ErrorTypes.NAME_FORMAT_INCORRECT:
+                error_object.message = 'Name format is incorrect';
+                break;
+            case ErrorTypes.EMAIL_FORMAT_INCORRECT:
+                error_object.message = 'E-mail format is incorrect';
+                break;
+            case ErrorTypes.PASSWORD_FORMAT_INCORRECT:
+                error_object.message = 'Password is too long';
+                break;
+            case ErrorTypes.USERNAME_ALREADY_EXISTS:
+                error_object.message = 'Username already exists';
+                break;
+            case ErrorTypes.USERNAME_OFFENSIVE:
+                error_object.message = 'Username contains offensive words';
+                break;
+            case ErrorTypes.EMAIL_ALREADY_EXISTS:
+                error_object.message = 'E-mail address is already registered';
+                break;
+            case ErrorTypes.FILE_NOT_PROVIDED:
+                error_object.message = 'File not provided';
+                break;
+            case ErrorTypes.FILE_CORRUPTED:
+                error_object.message = 'File is corrupted';
+                break;
+            case ErrorTypes.FILE_UPLOAD_ERROR:
+                error_object.message = 'Upload error';
+                break;
+            case ErrorTypes.INVALID_FB_TOKEN:
+                error_object.message = 'Invalid facebook token';
+                break;
+            case ErrorTypes.USER_NOT_FOUND:
+                error_object.message = 'User not found';
+                break;
+            case ErrorTypes.PHOTO_NOT_FOUND:
+                error_object.message = 'Photo not found';
+                break;
+            case ErrorTypes.USERNAME_FORMAT_INCORRECT:
+                error_object.message = 'Username format is incorrect';
+                break;
+            case ErrorTypes.INVALID_EMAIL:
+                error_object.message = 'Invalid e-mail address';
+                break;
+            case ErrorTypes.PHONE_NUMBER_EXISTS:
+                error_object.message = 'Phone number is already exists';
+                break;
+            case ErrorTypes.INVALID_PHONE_NUMBER:
+                error_object.message = 'Phone number format is incorrect';
+                break;
+            case ErrorTypes.AUTHORIZATION_CODE_INVALID:
+                error_object.message = 'Authorization code is incorrect';
+                break;
+            case ErrorTypes.USER_FOLLOWING_MAXIMUM_REACHED:
+                error_object.message = 'You cannot follow any more users';
+                break;
+            case ErrorTypes.USERNAME_REQUIRED:
+                error_object.message = 'Username is required';
+                break;
+            case ErrorTypes.NOT_PERMITTED:
+                error_object.message = 'Operation is not permitted';
+                break;
+            case ErrorTypes.USER_ACTION_BLOCKED:
+                error_object.message = 'This user has blocked you';
+                break;
+            case ErrorTypes.UNSUPPORTED_OPERATION:
+                error_object.message = "Operation isn't supported";
+                break;
+            case ErrorTypes.INVALID_PHOTO_TITLE:
+                error_object.message = "Photo title is invalid";
+                break;
+            case ErrorTypes.MESSAGING_CHANNEL_ERROR:
+                error_object.message = "Can not create channel";
+                break;
+            case ErrorTypes.MESSAGING_MESSAGE_ERROR:
+                error_object.message = "Can not create message";
+                break;
+            case ErrorTypes.INVALID_AGE_ERROR:
+                error_object.message = "You have to be over 13";
+                break;
+            case ErrorTypes.TAGS_REQUIRED:
+                error_object.message = "Tags are required";
+                break;
+            case ErrorTypes.DB_SAVE_ERROR:
+                error_object.message = 'Database save failed';
+                break;
+            case ErrorTypes.RESOURCE_NOT_FOUND:
+                error_object.message = "Resource not found";
+                break;
+            case ErrorTypes.RESOURCE_ALREADY_EXISTS:
+                error_object.message = 'Resource already exists';
+                break;
+            case ErrorTypes.UPLOAD_ERROR:
+                error_object.message = 'Upload error.';
+                break;
+            case ErrorTypes.USERNAME_LENGTH_INCORRECT:
+                error_object.message = 'Username is too long';
+                break;
+            case ErrorTypes.UNKNOWN_LOCATION:
+                error_object.message = 'Failed to resolve location';
+                break;
+            case ErrorTypes.INVALID_PURCHASE_DATA:
+                error_object.message = 'Invalid purchase data.';
+                break;
+            case ErrorTypes.MESSAGING_CHANNEL_INFO_ERROR:
+                error_object.message = 'Unable to get channel info';
+                break;
+            case ErrorTypes.MESSAGING_CHANNEL_REMOVE_ERROR:
+                error_object.message = 'Unable to remove channel.';
+                break;
+            case ErrorTypes.USER_ACTIVATION_EXPIRED:
+                error_object.message = "Activation has been expired";
+                break;
+            case ErrorTypes.PA_USER_BLOCK_ERROR:
+                error_object.message = 'You can\'t block this user';
+                break;
+            case ErrorTypes.DATE_FORMAT_ERROR:
+                error_object.message = 'Date format is incorrect';
+                break;
+            case ErrorTypes.LIFTIGNITER_SERVICE_ERROR:
+                error_object.message = 'LiftIgniter service error.';
+                break;
+            case ErrorTypes.MICROSOFT_VISION_ERROR:
+                error_object.message = "Microsoft vision service is unreachable";
+                break;
             case ErrorTypes.SEARCH_ERROR:
                 error_object.message = 'Something went wront in searching';
                 break;
             case ErrorTypes.SUCCESS:
-                error_object.message = 'Success!!!'
+                error_object.message = 'Success!!!';
                 break;
             case ErrorTypes.USERNAME_PASS_MISSING:
                 error_object.message = 'username or password are missing please enter username and password';
@@ -104,10 +284,10 @@ class Utility {
                 error_object.message = 'Your name range is invalid';
                 break;
             case ErrorTypes.NAME_MISSING:
-                error_object.message = 'name are missing'
+                error_object.message = 'name are missing';
                 break;
             case ErrorTypes.PERMISSION_DENIED:
-                error_object.message = 'you didn`h have permission'
+                error_object.message = 'you didn`h have permission';
                 break;
             case ErrorTypes.INVALID_AGE_RANGE:
                 error_object.message = 'Your age range is invalid';

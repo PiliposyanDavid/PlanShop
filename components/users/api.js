@@ -83,27 +83,27 @@ UsersRouter.put('/:id', (req, res) => {
     if (req.body.password) {
         res.send("If you want to change password make a put request '/api/users/password' ");
     }
-    // let uv_response = UserValidator.validateUsername(userusername);
-    // if (uv_response != Utility.ErrorTypes.SUCCESS) {
-    //   return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.uv_response));
-    // }
-    //
-    // let pas_response = UserValidator.validatePassword(password);
-    // if (pas_response != Utility.ErrorTypes.SUCCESS) {
-    //   return  res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.pas_response));
-    // }
-    //
-    // if (name.length < AppConstants.NAME_MIN_LENGTH || name.length > AppConstants.NAME_MAX_LENGTH) {
-    //   return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.INVALID_NAME_RANGE));
-    // }
-    // if (age < AppConstants.AGE_MIN_LENGTH || age > AppConstants.AGE_MAX_LENGTH) {
-    //   return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.INVALID_AGE_RANGE));
-    // }
-    // if (EmailValidator.validator(email) === false) {
-    //   return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.EMAIL_ERROR));
-    // }
-    //
-    // password = crypto.createHash('md5').update(username + password).digest('hex');
+    let uv_response = UserValidator.validateUsername(userusername);
+    if (uv_response != Utility.ErrorTypes.SUCCESS) {
+        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.uv_response));
+    }
+
+    let pas_response = UserValidator.validatePassword(password);
+    if (pas_response != Utility.ErrorTypes.SUCCESS) {
+        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.pas_response));
+    }
+
+    if (name.length < AppConstants.NAME_MIN_LENGTH || name.length > AppConstants.NAME_MAX_LENGTH) {
+        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.INVALID_NAME_RANGE));
+    }
+    if (age < AppConstants.AGE_MIN_LENGTH || age > AppConstants.AGE_MAX_LENGTH) {
+        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.INVALID_AGE_RANGE));
+    }
+    if (EmailValidator.validator(email) === false) {
+        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.EMAIL_ERROR));
+    }
+
+    password = crypto.createHash('md5').update(username + password).digest('hex');
     UsersService.updateUsers(req.params.id, user).then(data => {
         return res.send(data);
     });

@@ -3,11 +3,11 @@ const ShopListsRouter = express.Router();
 const ShopListsService = require('./service')
 
 ShopListsRouter.get('/', (req, res) => {
-    // if (!req.query.key) {
-    //     return res.send(Utility.GenerateErrorMessage(
-    //       Utility.ErrorTypes.PERMISSION_DENIED)
-    //     );
-    // }
+    if (!req.query.key) {
+        return res.send(Utility.GenerateErrorMessage(
+            Utility.ErrorTypes.PERMISSION_DENIED)
+        );
+    }
     let shoplist = {};
     if (req.query.id) {
         shoplist._id = req.query.id

@@ -22,17 +22,17 @@ GroupsRouter.post('/', (req, res) => {
     let groupname = req.body.groupname;
     let groupowner = req.body.groupowner;
     let shoplists = req.body.shoplists;
-    // if (!['dairy', 'fruits', 'meats', 'fish', 'sweets', 'juice', 'alcoholic'].includes(group)) {
-    //   return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.ERROR_PRODUCTS_GROUP));
-    // }
-    //
-    // if (!['very', 'middle', 'less'].includes(importance)) {
-    //   return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.ERROR_IMPORTANCE));
-    // }
-    //
-    // if (name.length > AppConstants.NAME_MAX_LENGTH || name.length < AppConstants.NAME_MIN_LENGTH) {
-    //   return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.INVALID_NAME_RANGE));
-    // }
+    if (!['dairy', 'fruits', 'meats', 'fish', 'sweets', 'juice', 'alcoholic'].includes(group)) {
+        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.ERROR_PRODUCTS_GROUP));
+    }
+
+    if (!['very', 'middle', 'less'].includes(importance)) {
+        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.ERROR_IMPORTANCE));
+    }
+
+    if (name.length > AppConstants.NAME_MAX_LENGTH || name.length < AppConstants.NAME_MIN_LENGTH) {
+        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.INVALID_NAME_RANGE));
+    }
     let group = {
         groupname: groupname,
         groupowner: groupowner,
@@ -47,27 +47,27 @@ GroupsRouter.post('/', (req, res) => {
     });
 });
 
-// ProductsRouter.put('/:id', (req, res) => {
-//
-//     let id = req.params.id;
-//     let shoplist = {};
-//     if (req.body.name) {
-//         shoplist.name = req.body.name;
-//     }
-//     if (req.body.group) {
-//         shoplist.group = req.body.group;
-//     }
-//     if (req.body.importance) {
-//         shoplist.importance = req.body.importance;
-//     }
-//
-//     ProductsService.updateproducts(id, shoplist).then(data => {
-//          return res.send(data);
-//      }).catch(err => {
-//          res.send(err)
-//      });
-//
-// });
+ProductsRouter.put('/:id', (req, res) => {
+
+    let id = req.params.id;
+    let shoplist = {};
+    if (req.body.name) {
+        shoplist.name = req.body.name;
+    }
+    if (req.body.group) {
+        shoplist.group = req.body.group;
+    }
+    if (req.body.importance) {
+        shoplist.importance = req.body.importance;
+    }
+
+    ProductsService.updateproducts(id, shoplist).then(data => {
+        return res.send(data);
+    }).catch(err => {
+        res.send(err)
+    });
+
+});
 
 GroupsRouter.delete('/:id', (req, res) => {
     let id = {
@@ -82,6 +82,6 @@ GroupsRouter.delete('/:id', (req, res) => {
     }).catch(err => {
         res.send(err);
     });
-})
+});
 
 module.exports = GroupsRouter;

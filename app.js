@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 
-//const Utylity = require('./services/utility');
+const Utylity = require('./services/utility');
 const ApiV1 = require('./controllers/api');
 
 const app = express();
@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-//app.use(Utylity.parseQuery);
+app.use(Utylity.parseQuery);
 ApiV1.initialize(app);
 
 

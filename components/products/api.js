@@ -4,11 +4,11 @@ const ProductsService = require('./service');
 const Utility = require('./../../services/utility');
 
 ProductsRouter.get('/', (req, res) => {
-    // if (!req.query.key) {
-    //     return res.send(Utility.GenerateErrorMessage(
-    //       Utility.ErrorTypes.PERMISSION_DENIED)
-    //     );
-    // }
+    if (!req.query.key) {
+        return res.send(Utility.GenerateErrorMessage(
+            Utility.ErrorTypes.PERMISSION_DENIED)
+        );
+    }
     let product = {};
     if (req.query.id) {
         product._id = req.query.id
@@ -22,17 +22,17 @@ ProductsRouter.post('/', (req, res) => {
     let name = req.body.name;
     let group = req.body.group;
     let importance = req.body.importance;
-    // if (!['dairy', 'fruits', 'meats', 'fish', 'sweets', 'juice', 'alcoholic'].includes(group)) {
-    //   return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.ERROR_PRODUCTS_GROUP));
-    // }
-    //
-    // if (!['very', 'middle', 'less'].includes(importance)) {
-    //   return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.ERROR_IMPORTANCE));
-    // }
-    //
-    // if (name.length > AppConstants.NAME_MAX_LENGTH || name.length < AppConstants.NAME_MIN_LENGTH) {
-    //   return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.INVALID_NAME_RANGE));
-    // }
+    if (!['dairy', 'fruits', 'meats', 'fish', 'sweets', 'juice', 'alcoholic'].includes(group)) {
+        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.ERROR_PRODUCTS_GROUP));
+    }
+
+    if (!['very', 'middle', 'less'].includes(importance)) {
+        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.ERROR_IMPORTANCE));
+    }
+
+    if (name.length > AppConstants.NAME_MAX_LENGTH || name.length < AppConstants.NAME_MIN_LENGTH) {
+        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.INVALID_NAME_RANGE));
+    }
     let products = {
         name: name,
         group: group,
@@ -82,6 +82,6 @@ ProductsRouter.delete('/:id', (req, res) => {
     }).catch(err => {
         res.send(err);
     });
-})
+});
 
 module.exports = ProductsRouter;

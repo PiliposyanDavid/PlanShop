@@ -12,8 +12,8 @@ class UsersService {
                 .then(data => {
                     resolve(data);
                 }).catch(err => {
-                    reject(Utylity.GenerateErrorMessage(
-                        Utylity.ErrorTypes.SEARCH_ERROR));
+                    reject(Utility.GenerateErrorMessage(
+                        Utility.ErrorTypes.SEARCH_ERROR));
                 });
         });
 
@@ -24,20 +24,11 @@ class UsersService {
     }
 
     updateUser(id, user) {
-        UsersDao.updateData(id, user);
+        return UsersDao.updateData(id, user);
     }
 
-
-    deleteUsers(id) {
-        return new Promise((resolve, reject) => {
-            UsersDao.deleteData(id)
-                .then(data => {
-                    resolve(data);
-                }).catch(err => {
-                reject(Utylity.GenerateErrorMessage(
-                    Utylity.ErrorTypes.ERROR_IN_DELETING));
-            });
-        });
+    deleteUser(id) {
+        return UsersDao.deleteData(id);
     }
 
 }

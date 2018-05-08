@@ -120,8 +120,6 @@ UsersRouter.put('/:id', (req, res) => {
             err_type: Utility.GenerateErrorMessage(Utility.ErrorTypes.EMAIL_ERROR)
         });
 
-
-    password = crypto.createHash('md5').update(username + password).digest('hex');
     UsersService.updateUser(req.params.id, user).then(data => {
         return res.send({
             message: 'success',
@@ -138,10 +136,21 @@ UsersRouter.put('/:id', (req, res) => {
 
 UsersRouter.delete('/:id', (req, res) => {
     if (!req.params.id) {
-        return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.EMPTY_ID_DELETE));
+        return res.send({
+            message: 'error',
+            err_type: Utility.GenerateErrorMessage(Utility.ErrorTypes.EMPTY_ID_DELETE)
+        });
     }
-    UsersService.deleteUsers(req.params.id).then(data => {
-        return res.send("Yes!!!!");
+    UsersService.deleteUser(+req.params.id).then((_) => {
+        return res.send({
+            message: 'success'
+        }).catch((err) => {
+            return res.send({
+                message: 'error',
+                reason: Utility.GenerateErrorMessage(Utility.ErrorTypes.ERROR_IN_DELETING),
+                err_type: err
+            });
+        });
     });
 });
 

@@ -56,4 +56,11 @@ typings/
 
 # dotenv environment variables file
 .env
+.idea/
+.history/
+.vscode/
+build/
+node_modules/
+#Sass generated files
+.jscsrc
 

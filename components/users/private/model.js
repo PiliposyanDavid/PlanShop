@@ -4,8 +4,6 @@ const Schema = mongoose.Schema;
 
 //const products = require('./products');
 //const shoplist = require('./shoplist');
-const AppConstants = require('./../../../settings/constants');
-const EmailValidator = require('./../../../services/validators/emailValidator');
 
 
 function generateAPIKey() {
@@ -23,16 +21,12 @@ let userSchema = Schema({
 
     username: {
         type: String,
-        index: {unique: true},
-        minLength: AppConstants.USERNAME_MIN_LENGTH,
-        maxLength: AppConstants.USERNAME_MAX_LENGTH
+        index: {unique: true}
     },
 
     age: {
         type: Number,
-        default: null,
-        minLength: AppConstants.AGE_MIN_LENGTH,
-        maxLength: AppConstants.AGE_MAX_LENGTH
+        default: null
     },
 
     password: {
@@ -41,15 +35,11 @@ let userSchema = Schema({
 
     email: {
         type: String,
-        lowercase: true,
-        minLength: AppConstants.EMAIL_MIN_LENGTH,
-        maxLength: AppConstants.EMAIL_MAX_LENGTH,
+        lowercase: true
     },
 
     name: {
         type: String,
-        minLength: AppConstants.NAME_MIN_LENGTH,
-        maxLength: AppConstants.NAME_MAX_LENGTH,
         default: null
     },
 
@@ -57,21 +47,21 @@ let userSchema = Schema({
         type: String,
         enum: ['user', 'admin'],
         default: 'user'
-    }/*,
+    },
 
-  products: [{
-      type: Schema.ObjectId,
-      index: true,
-      ref: 'products',
-      default: null
-  }],
+    products: [{
+        type: Schema.ObjectId,
+        index: true,
+        ref: 'products',
+        default: null
+    }],
 
-  shoplist: [{
-      type:String,
-      index: true,
-      ref: 'shoplist',
-      default: null
-  }]*/
+    shoplist: [{
+        type: String,
+        index: true,
+        ref: 'shoplist',
+        default: null
+    }]
 });
 
 module.exports = mongoose.model('users', userSchema);

@@ -3,14 +3,19 @@ const ShopListApi = require('./../components/shoplists/api');
 const ProductsApi = require('./../components/products/api');
 const GroupsApi = require('./../components/groups/api');
 
+const UsersDao = require('./../components/users/private/mongoDao');
+const ShopListDao = require('./../components/shoplists/private/mongoDao');
+const ProductsDao = require('./../components/products/private/mongoDao');
+const GroupsDao = require('./../components/groups/private/mongoDao');
+
 class ApiV1 {
-    initialize(app) {
+    constructor(app) {
         app.use('/api/users', UsersApi);
         app.use('/api/shoplists', ShopListApi);
         app.use('/api/products', ProductsApi);
         app.use('/api/groups', GroupsApi);
         app.get('/', (req, res) => {
-            res.send('works');
+            res.send('ApiV1');
         });
     }
 }

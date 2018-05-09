@@ -5,18 +5,8 @@ class UsersService {
     constructor() {
     }
 
-    getUsers() {
-        return new Promise((resolve, reject) => {
-            //options = options || {};
-            return UsersDao.getData()
-                .then(data => {
-                    resolve(data);
-                }).catch(err => {
-                    reject(Utility.GenerateErrorMessage(
-                        Utility.ErrorTypes.SEARCH_ERROR));
-                });
-        });
-
+    getUsers(query) {
+        return UsersDao.getData(query);
     }
 
     insertUser(user) {
@@ -30,7 +20,6 @@ class UsersService {
     deleteUser(id) {
         return UsersDao.deleteData(id);
     }
-
 }
 
 

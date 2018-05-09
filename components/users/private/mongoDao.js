@@ -9,6 +9,14 @@ class UsersDao extends BaseDao {
     constructor() {
         super(connect.model('users'));
     }
+
+    getUserById() {
+
+    }
+
+    getCollection(){
+        return connect.model('users');
+    }
 }
 
 module.exports = new UsersDao();

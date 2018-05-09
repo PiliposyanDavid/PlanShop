@@ -9,8 +9,32 @@ const UsersService = require('./service');
 
 //GET
 UsersRouter.get('/', (req, res) => {
-    UsersService.getUsers().then(data => {
-        return res.send(data);
+    UsersService.getUsers().then((data) => {
+        return res.send({
+            message: 'success',
+            user_data: data
+        });
+    }).catch((err) => {
+        return res.send({
+            message: 'error',
+            err_type: err,
+            reason: Utility.GenerateErrorMessage(Utility.ErrorTypes.SEARCH_ERROR)
+        });
+    });
+});
+
+UsersRouter.get('/:id', (req, res) => {
+    UsersService.getUsers({id: +req.params.id}).then((data) => {
+        return res.send({
+            message: 'success',
+            user_data: data
+        });
+    }).catch((err) => {
+        return res.send({
+            message: 'error',
+            err_type: err,
+            reason: Utility.GenerateErrorMessage(Utility.ErrorTypes.SEARCH_ERROR)
+        });
     });
 });
 
@@ -120,7 +144,7 @@ UsersRouter.put('/:id', (req, res) => {
             err_type: Utility.GenerateErrorMessage(Utility.ErrorTypes.EMAIL_ERROR)
         });
 
-    UsersService.updateUser(req.params.id, user).then(data => {
+    UsersService.updateUser(+req.params.id, user).then(data => {
         return res.send({
             message: 'success',
             user_data: data

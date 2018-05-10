@@ -1,24 +1,25 @@
-const UsersDao = require('./private/mongoDao');
+const usersDao = require('./private/mongoDao');
 const Utility = require('./../../services/utility');
 
 class UsersService {
-    constructor() {
+    constructor(usersDao) {
+        this.
     }
 
     getUsers(query) {
-        return UsersDao.getData(query);
+        return usersDao.getData(query);
     }
 
     insertUser(user) {
-        return UsersDao.insertData(user);
+        return usersDao.insertData(user);
     }
 
     updateUser(id, user) {
-        return UsersDao.updateData(id, user);
+        return usersDao.updateData(id, user);
     }
 
     deleteUser(id) {
-        return UsersDao.deleteData(id);
+        return usersDao.deleteData(id);
     }
 }
 

@@ -9,7 +9,7 @@ const ProductsService = require('./../components/products/service');
 const GroupsService = require('./../components/groups/service');
 
 module.exports = function (app) {
-    const userDao = new UsersDao(app.db1);
+    const userDao = new UsersDao(app.db1.users);
     const userService = new UsersService(userDao);
 
     const shoplistDao = new ShopListDao(app.db1);

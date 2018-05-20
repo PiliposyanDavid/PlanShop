@@ -114,7 +114,43 @@ module.exports = (usersService) => {
 
     function put(req, res, next) {
 
-        usersService.getUsers({id: +req.params.id}).then((data) => {
+        let user = {};
+        if (req.body.username)
+            user.username = req.body.username;
+
+        if (req.body.name)
+            user.name = req.body.name;
+
+        if (req.body.age)
+            user.age = req.body.age;
+
+        if (req.body.email)
+            user.email = req.body.email;
+
+        let username_response = UserValidator.validateUsername(user.username);
+        if (username_response !== Utility.ErrorTypes.SUCCESS)
+            return res.send(Utility.GenerateErrorMessage(Utility.ErrorTypes.username_response));
+
+        let name_response = UserValidator.validateName(user.name);
+        if (name_response !== Utility.ErrorTypes.SUCCESS)
+            return res.send({
+                message: 'error',
+                err_type: Utility.GenerateErrorMessage(Utility.ErrorTypes.name_response)
+            });
+
+        if (user.age < AppConstants.AGE_MIN_LENGTH || user.age > AppConstants.AGE_MAX_LENGTH)
+            return res.send({
+                message: 'error',
+                err_type: Utility.GenerateErrorMessage(Utility.ErrorTypes.INVALID_AGE_RANGE)
+            });
+
+        if (EmailValidator.validator(user.email) === false)
+            return res.send({
+                message: 'error',
+                err_type: Utility.GenerateErrorMessage(Utility.ErrorTypes.EMAIL_ERROR)
+            });
+
+        usersService.updateUser(+req.params.id, user).then(data => {
             return res.send({
                 message: 'success',
                 user_data: data
@@ -122,11 +158,10 @@ module.exports = (usersService) => {
         }).catch((err) => {
             return res.send({
                 message: 'error',
-                err_type: err,
-                reason: Utility.GenerateErrorMessage(Utility.ErrorTypes.SEARCH_ERROR)
+                reason: Utility.GenerateErrorMessage(Utility.ErrorTypes.USER_UPDATE_ERROR),
+                err_type: err
             });
         });
-
     }
 
     function remove(req, res, next) {

@@ -18,44 +18,36 @@ let userSchema = Schema({
         type: String,
         default: generateAPIKey
     },
-
     username: {
         type: String,
         index: {unique: true}
     },
-
     age: {
         type: Number,
         default: null
     },
-
     password: {
         type: String,
     },
-
     email: {
         type: String,
         lowercase: true
     },
-
     name: {
         type: String,
         default: null
     },
-
     role: {
         type: String,
         enum: ['user', 'admin'],
         default: 'user'
     },
-
     products: [{
         type: Schema.ObjectId,
         index: true,
         ref: 'products',
         default: null
     }],
-
     shoplist: [{
         type: String,
         index: true,

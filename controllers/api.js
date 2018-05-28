@@ -29,7 +29,10 @@ module.exports = function (app) {
     app.delete('/api/users/:id', usersApi.remove);
 
     const shoplistApi = require('./../components/shoplists/api')(shoplistService);
-    app.get('/api/shoplists/', shoplistApi.getOll);
+    app.get('/api/shoplist/:id', shoplistApi.get);
+    app.post('/api/shoplist/:id', shoplistApi.add);
+    app.put('/api/shoplist/:id', shoplistApi.put);
+    app.delete('/api/shoplist/:id', shoplistApi.remove);
 
     const productsApi = require('./../components/products/api')(productsService);
     app.get('/api/products/', productsApi.getOll);

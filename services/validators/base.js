@@ -5,7 +5,7 @@ const Types = {
     NUMBER: 'number',
     DATE: 'date',
     SYMBOL: 'symbol'
-}
+};
 
 class BaseValidator {
 
@@ -18,52 +18,33 @@ class BaseValidator {
     }
 
     validator(str, type) {
-        if (!this.handlers[type]) {
-            return false;
-        }
+        if (!this.handlers[type]) return false;
+
         return this.handlers[type](str);
     }
 
     _isString(str) {
-        if (!str) {
-            return false;
-        }
-        if (typeof(str) === 'string') {
-            return true;
-        }
-        return false;
+        if (!str) return false;
+
+        return typeof(str) === 'string';
     }
 
     _isNumber(str) {
-        if (!str) {
-            return false;
-        }
-        let numberRegExp = AppConstants.NUMBER_REG_EXP;
-        if (numberRegExp.test(str)) {
-            return true;
-        }
-        return false;
+        if (!str) return false;
+
+        return AppConstants.NUMBER_REG_EXP.test(str);
     }
 
     _isDate(str) {
-        if (!str) {
-            return false;
-        }
-        if (Date.parse(str)) {
-            return true;
-        }
-        return false;
+        if (!str) return false;
+
+        return !!Date.parse(str);
     }
 
     _isSymbol(str) {
-        if (!str) {
-            return false;
-        }
-        let symbolRegExp = AppConstants.SYMBOL_REG_EXP;
-        if (symbolRegExp.test(str)) {
-            return true;
-        }
-        return false;
+        if (!str) return false;
+
+        return AppConstants.SYMBOL_REG_EXP.test(str);
     }
 }
 

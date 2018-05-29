@@ -1,19 +1,47 @@
-const UsersApi = require('./../components/users/api');
-const ShoplistApi = require('./../components/shoplists/api');
-const ProductsApi = require('./../components/products/api');
-const GroupsApi = require('./../components/groups/api');
+const UsersDao = require('./../components/users/private/mongoDao');
+const ShopListDao = require('./../components/shoplists/private/mongoDao');
+const ProductsDao = require('./../components/products/private/mongoDao');
+const GroupsDao = require('./../components/groups/private/mongoDao');
 
-class ApiV1 {
-    initialize(app) {
-        app.use('/api/users', UsersApi);
-        app.use('/api/shoplists', ShoplistApi);
-        app.use('/api/products', ProductsApi);
-        app.use('/api/groups', GroupsApi);
-        app.get('/', (req, res) => {
-            res.send('works');
-        });
-    }
-}
+const UsersService = require('./../components/users/service');
+const ShopListService = require('./../components/shoplists/service');
+const ProductsService = require('./../components/products/service');
+const GroupsService = require('./../components/groups/service');
 
+module.exports = function (app) {
+    const userDao = new UsersDao(app.db1.users);
+    const userService = new UsersService(userDao);
 
-module.exports = new ApiV1();
+    const shoplistDao = new ShopListDao(app.db1);
+    const shoplistService = new ShopListService(shoplistDao);
+
+    const productsDao = new ProductsDao(app.db1);
+    const productsService = new ProductsService(productsDao);
+
+    const groupsDao = new GroupsDao(app.db1);
+    const groupsService = new GroupsService(groupsDao);
+
+    const usersApi = require('./../components/users/api')(userService);
+    app.get('/api/users/', usersApi.getOll);
+    app.get('/api/users/:id', usersApi.getById);
+    app.post('/api/users/:id', usersApi.add);
+    app.put('/api/users/:id', usersApi.put);
+    app.delete('/api/users/:id', usersApi.remove);
+
+    const shoplistApi = require('./../components/shoplists/api')(shoplistService);
+    app.get('/api/shoplist/:id', shoplistApi.get);
+    app.post('/api/shoplist/:id', shoplistApi.add);
+    app.put('/api/shoplist/:id', shoplistApi.put);
+    app.delete('/api/shoplist/:id', shoplistApi.remove);
+
+    const productsApi = require('./../components/products/api')(productsService);
+    app.get('/api/products/', productsApi.getOll);
+
+    const groupsApi = require('./../components/groups/api')(groupsService);
+    app.get('/api/groups/', groupsApi.getOll);
+
+    app.get('/', (req, res) => {
+        res.send('ApiV1');
+    });
+};
+

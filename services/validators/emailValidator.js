@@ -8,17 +8,11 @@ class EmailValidator extends BaseValidator {
     }
 
     validator(email) {
-        if (!super.validator(email, BaseValidator.Types.STRING)) {
-            return false;
-        }
-        if (!email) {
-            return false;
-        }
-        let ValidemailRegExp = AppConstants.EMAIL_REG_EXP;
-        if (ValidemailRegExp.test(email)) {
-            return true;
-        }
-        return false;
+        if (!email) return false;
+
+        if (!super.validator(email, BaseValidator.Types.STRING)) return false;
+
+        return AppConstants.EMAIL_REG_EXP.test(email);
     }
 }
 

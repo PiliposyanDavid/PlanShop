@@ -1,5 +1,5 @@
 const AppConstants = {
-    DB_URL: '127.0.0.1:27017/PlanShop',
+    DB1_URL: '127.0.0.1:27017/PlanShop',
     LIMIT_DEFAULT_VALUE: 20,
     OFFSET_DEFAULT_VALUE: 0,
     LIST_NAME_MIN_LENGTH: 2,

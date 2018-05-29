@@ -1,61 +1,23 @@
-const UsersDao = require('./private/mongoDao');
-const Utility = require('./../../services/utility');
+function UsersService(usersDao) {
+    this.insertUser = insertUser;
+    this.updateUser = updateUser;
+    this.deleteUser = deleteUser;
+    this.getUsers = getUsers;
 
-class UsersService {
-    constructor() {
+    function getUsers(query) {
+        return usersDao.getData(query);
     }
 
-    getUsers() {
-        return new Promise((resolve, reject) => {
-            //options = options || {};
-            return UsersDao.getData()
-                .then(data => {
-                    resolve(data);
-                }).catch(err => {
-                    reject(Utylity.GenerateErrorMessage(
-                        Utylity.ErrorTypes.SEARCH_ERROR));
-                });
-        });
-
+    function insertUser(user) {
+        return usersDao.insertData(user);
     }
 
-    insertUsers(user) {
-        return new Promise((resolve, reject) => {
-            UsersDao.inserData(
-                user).then(data => {
-                resolve(data);
-            }).catch(err => {
-                reject(Utylity.GenerateErrorMessage(
-                    Utylity.ErrorTypes.ERROR_CREATION_USER));
-            });
-        });
+    function updateUser(id, user) {
+        return usersDao.updateData(id, user);
     }
 
-    updateUsers(id, user) {
-        return new Promise((resolve, reject) => {
-            UsersDao.updateData(id, user)
-                .then(data => {
-                    resolve(data);
-                }).catch(err => {
-                reject(Utylity.GenerateErrorMessage(
-                    Utylity.ErrorTypes.USER_UPDATE_ERROR));
-            });
-        });
+    function deleteUser(id) {
+        return usersDao.deleteData(id);
     }
-
-    deleteUsers(id) {
-        return new Promise((resolve, reject) => {
-            UsersDao.deleteData(id)
-                .then(data => {
-                    resolve(data);
-                }).catch(err => {
-                reject(Utylity.GenerateErrorMessage(
-                    Utylity.ErrorTypes.ERROR_IN_DELETING));
-            });
-        });
-    }
-
 }
-
-
-module.exports = new UsersService();
+module.exports = UsersService;
